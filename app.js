@@ -11,7 +11,7 @@ const download = require('download');
 const KEY = process.env.JD_COOKIE;
 const serverJ = process.env.PUSH_KEY;
 const DualKey = process.env.JD_COOKIE_2;
-
+const OtherKey = process.env.OTHER_KEY;
 
 async function downFile () {
     // const url = 'https://cdn.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js'
@@ -21,9 +21,14 @@ async function downFile () {
 
 async function changeFile () {
    let content = await fs.readFileSync('./JD_DailyBonus.js', 'utf8')
-   content = content.replace(/var Key = ''/, `var Key = '${KEY}'`);
+   if (KEY) {
+    content = content.replace(/var Key = ''/, `var Key = '${KEY}'`);
+   }
    if (DualKey) {
     content = content.replace(/var DualKey = ''/, `var DualKey = '${DualKey}'`);
+   }
+   if (OtherKey) {
+    content = content.replace(/var OtherKey = ``/, `var DualKey = \`${OtherKey}\``);
    }
    await fs.writeFileSync( './JD_DailyBonus.js', content, 'utf8')
 }
