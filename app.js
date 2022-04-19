@@ -7,10 +7,8 @@ const fs = require('fs');
 const rp = require('request-promise');
 const download = require('download');
 
-// 公共变量
-const KEY = process.env.JD_COOKIE;
-const serverJ = process.env.PUSH_KEY;
-const DualKey = process.env.JD_COOKIE_2;
+// 公共变量 
+const serverJ = process.env.PUSH_KEY; 
 const OtherKey = process.env.OTHER_KEY;
 
 async function downFile () {
@@ -20,13 +18,7 @@ async function downFile () {
 }
 
 async function changeFile () {
-   let content = await fs.readFileSync('./JD_DailyBonus.js', 'utf8')
-   if (KEY) {
-    content = content.replace(/var Key = ''/, `var Key = '${KEY}'`);
-   }
-   if (DualKey) {
-    content = content.replace(/var DualKey = ''/, `var DualKey = '${DualKey}'`);
-   }
+   let content = await fs.readFileSync('./JD_DailyBonus.js', 'utf8') 
    if (OtherKey) {
     content = content.replace(/var OtherKey = ``/, `var DualKey = \`${OtherKey}\``);
    }
@@ -54,8 +46,8 @@ async function sendNotify (text,desp) {
 }
 
 async function start() {
-  if (!KEY) {
-    console.log('请填写 key 后在继续')
+  if (!OtherKey) {
+    console.log('请填写 OtherKey 后在继续')
     return
   }
   // 下载最新代码
